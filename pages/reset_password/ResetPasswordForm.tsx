@@ -3,8 +3,9 @@ import {
     Form,
     Input,
     Divider,
+    message 
   } from 'antd';
-  import React from 'react';
+  import React, {useState} from 'react';
   
   const formItemLayout = {
     labelCol: {
@@ -16,13 +17,21 @@ import {
       sm: { span: 16 },
     },
   };
+
+  interface SubmitValue {
+    password: string,
+    confirm: string
+  };
   
   const ResetPasswordForm: React.FC = () => {
-
+    const [loading, setLoading] = useState<boolean>(false)
     const [form] = Form.useForm();
   
-    const onFinish = async (values: any) => {
+    const onFinish = async (values: SubmitValue) => {
+      setLoading(true);
+      message.success('Update Successfully')
       console.log(values);
+      setLoading(false);
     };
   
     return (
@@ -31,8 +40,11 @@ import {
         form={form}
         name="resetPassword"
         onFinish={onFinish}
-        style={{ maxWidth: 800 }}
+        style={{ width: 400 }}
         scrollToFirstError
+        onFinishFailed={({ errorFields }) => {
+          console.log(errorFields)
+        }}
       >
         <Form.Item
           name="password"
@@ -49,7 +61,7 @@ import {
           ]}
           hasFeedback
         >
-          <Input.Password />
+          <Input.Password data-testid="new_password"/>
         </Form.Item>
         <Form.Item
           name="confirm"
@@ -71,11 +83,11 @@ import {
             }),
           ]}
         >
-          <Input.Password />
+          <Input.Password data-testid="confirm_password"/>
         </Form.Item>
         <Divider style={{marginBottom: 10}}/>
         <div style={{textAlign: 'center'}}>
-          <Button type="primary" htmlType="submit" data-testid="submit_button">
+          <Button type="primary" htmlType="submit" disabled={loading} data-testid="submit_button">
             Submit
           </Button>
         </div>
