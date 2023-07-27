@@ -1,7 +1,8 @@
+import './matchMedia.mock';
 import { render } from '@testing-library/react'
-import Home from '@/pages/index'
+import ResetPasswordPage from '@/pages/reset_password'
 
-it('renders homepage unchanged', () => {
-  const { container } = render(<Home />)
+it('render reset password page', () => {
+  const { container } = render(<ResetPasswordPage />)
   expect(container).toMatchSnapshot()
 })
