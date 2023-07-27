@@ -4,10 +4,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --watch",
+    "test": "jest --watch --silent",
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "antd": "^5.7.3",
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
